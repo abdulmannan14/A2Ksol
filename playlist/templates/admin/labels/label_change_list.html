@@ -1,0 +1,14 @@
+{% extends 'admin/change_list.html' %}
+{% block object-tools%}
+<form id="button" method="POST">
+    {% csrf_token %}
+<!--            <button class="button" type="submit">Export Json</button>-->
+    <a href="{% url 'addrow' %}">Export Json</a>
+</form>
+
+<!--<form action="{% url 'addrow' %}" method='GET'>-->
+<!--<button type='submit'> sort me</button>-->
+<!--</form>-->
+{{block.super}}
+
+{% endblock object-tools%}
