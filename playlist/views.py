@@ -201,6 +201,13 @@ class insert_video_to_playlist(APIView):
                              "you can add these videos only":remaining_videos},
                             status=status.HTTP_400_BAD_REQUEST)
         else:
-            videos = Add_video_to_playlist(playlist_id=playlist_id, video_id=video_id)
-            videos.save()
-            return Response({'message':'Video Added successfully','status':status.HTTP_201_CREATED},status=status.HTTP_201_CREATED)
+            if Playlist.objects.filter(id=playlist_id):
+                videos = Add_video_to_playlist(playlist_id=playlist_id, video_id=video_id)
+                videos.save()
+                return Response({'message':'Video Added successfully',
+                                 'status':status.HTTP_201_CREATED},
+                                status=status.HTTP_201_CREATED)
+            else:
+                return Response({'message': 'Playlist id is not correct',
+                                 'status': status.HTTP_400_BAD_REQUEST},
+                                status=status.HTTP_400_BAD_REQUEST)
